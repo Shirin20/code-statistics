@@ -1,0 +1,28 @@
+{
+  "name": "code-statistics",
+  "version": "1.0.0",
+  "description": "Calculates code statistics",
+  "type": "module",
+  "main": "app.js",
+  
+  "scripts": {
+    "start": "node test-app.js",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0",
+    "test": "npx --node-options=--experimental-vm-modules jest || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shirin20/code-statistics.git"
+  },
+  "author": "Shirin Meirkhan <sm223qi@student.lnu.se>",
+  "license": "MIT",
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.5",
+    "jest": "^28.1.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Shirin20/code-statistics/issues"
+  },
+  "homepage": "https://github.com/Shirin20/code-statistics#readme"
+}
