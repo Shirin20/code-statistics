@@ -48,7 +48,7 @@ console.log('project Operations = ', await checkMyProjectCode.countProjectOperat
 ## Installing
 
 ```shell
-git clone 'https://github.com/Shirin20/code-statistics.git'
+npm i code-statistics
 ```
 ### License  
 [MIT](https://libraries.io/licenses/MIT)
