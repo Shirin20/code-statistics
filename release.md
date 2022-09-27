@@ -16,9 +16,9 @@
     - [x] Reflektion är skriven utifrån bokens kapitel 
   - [ ] Jag eftersträvar med denna inlämning högre betyg (C-B) och anser mig uppfylla alla extra krav för detta. 
     - [ ] Samtliga testfall är skrivna    
-    - [ ] Testfall är automatiserade
-    - [ ] Det finns en tydlig beskrivning i hur modulen skall användas (i git)
-    - [ ] Kodkvalitetskraven är varierade 
+    - [x] Testfall är automatiserade
+    - [x] Det finns en tydlig beskrivning i hur modulen skall användas (i git)
+    - [x] Kodkvalitetskraven är varierade 
   - [ ] Jag eftersträvar med denna inlämning högsta betyg (A) 
 ​
 Förtydligande: Examinator kommer sätta betyg oberoende på vad ni anser. 
@@ -37,6 +37,7 @@ Den tar file text innehåll och räknar rader , charecters hur många looper och
 Den tar an array of file pathes och sen räknar rader , charecters hur många looper och satser
 *ErrorHandlar.js  
 Den kastar lämplig fel meddelande när man matar in fel data 
+[Diagram](test/img/diagram.png)
 ​
 ## Hur jag testat
 programmet var testat genom hela utvecklings tiden med automatiska tester for två klasses (ProjectCodeChecker.js och FileCodeChecker.js som använder andra klassers metoder (ErrorHandlar.js , ProjectFilesReader.js) genom att använda jest ramverk.)

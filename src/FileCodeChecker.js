@@ -37,7 +37,7 @@ export class FileCodeChecker {
    * @param {string} fileAsText .
    * @returns {string} fileText
    */
-   #deleteCodBlockComments (fileAsText) {
+  #deleteCodBlockComments (fileAsText) {
     while (this.#thereAreCodBlockComments(fileAsText)) {
       const beginningOfTheComment = fileAsText.indexOf('/*')
       const endOfTheComment = fileAsText.indexOf('*/')
