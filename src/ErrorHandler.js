@@ -5,35 +5,50 @@ import path from 'path'
  */
 export class ErrorHandler {
   /**
-   * Returns and throw exceptions if the input does not meet the set requirements .
+   * Returns and throw exceptions if the input is not an array of project files paths .
    *
-   * @param {Array} dirFilesPaths - An array.
+   * @param {Array} projectFilesPaths .
    */
-  projectErrorMessage (dirFilesPaths) {
-    if (dirFilesPaths === undefined) {
-      throw TypeError('You should pass the files array')
-    } else if (!Array.isArray(dirFilesPaths)) {
-      throw TypeError('You should pass the files array')
+  handleProjectError (projectFilesPaths) {
+    this.#throwErrorIfNotArray(projectFilesPaths)
+    this.#throwErrorIfUndefined(projectFilesPaths)
+    this.#throwErrorWhenThereOtherThanFiles(projectFilesPaths) // throw error
+  }
+
+  // eslint-disable-next-line jsdoc/require-jsdoc
+  #throwErrorIfNotArray (projectFilesPaths) {
+    if (!Array.isArray(projectFilesPaths)) {
+      throw TypeError('You should pass an array of the files paths')
     }
-    for (let i = 0; i < dirFilesPaths.length; i++) {
-      if (path.extname(dirFilesPaths[i]) === '') {
-        throw TypeError('You should pass the files array')
+  }
+  // eslint-disable-next-line lines-between-class-members, jsdoc/require-jsdoc
+  #throwErrorIfUndefined (projectFilesPaths) {
+    if (projectFilesPaths === undefined) {
+      throw TypeError('You should pass the files paths array')
+    }
+  }
+
+  // eslint-disable-next-line jsdoc/require-description, jsdoc/require-jsdoc
+  #throwErrorWhenThereOtherThanFiles (projectFilesPaths) {
+    for (let i = 0; i < projectFilesPaths.length; i++) {
+      if (path.extname(projectFilesPaths[i]) === '') {
+        throw TypeError('The array should only contain file paths')
       }
     }
   }
 
   /**
-   * Returns and throw exceptions if the input does not meet the set requirements .
+   * Returns and throw exceptions if the input is not a file path string .
    *
-   * @param {string} fileAsText - An array.
+   * @param {string} filePath .
    */
-  fileErrorMessage (fileAsText) {
+  handleFileError (filePath) {
     const ERROR_MESSAGE_NOT_A_STRING = 'You should pass the file path string'
-    if (fileAsText === undefined) {
+    if (filePath === undefined) {
       throw TypeError(ERROR_MESSAGE_NOT_A_STRING)
-    } else if (Array.isArray(fileAsText)) {
+    } else if (Array.isArray(filePath)) {
       throw TypeError(ERROR_MESSAGE_NOT_A_STRING)
-    } else if (typeof fileAsText === 'object') {
+    } else if (typeof filePath === 'object') {
       throw TypeError(ERROR_MESSAGE_NOT_A_STRING)
     }
   }
@@ -41,14 +56,14 @@ export class ErrorHandler {
   /**
    * Returns and throw exceptions if the input does not meet the set requirements .
    *
-   * @param {string} operation - An array.
+   * @param {string} statementsAndLoops - An array.
    */
-  operationParameterErrorMessage (operation) {
-    if (operation === undefined) {
+  handleStatementsAndLoopsParameterError (statementsAndLoops) {
+    if (statementsAndLoops === undefined) {
       throw TypeError('You should pass a string')
-    } else if (Array.isArray(operation)) {
+    } else if (Array.isArray(statementsAndLoops)) {
       throw TypeError('The passed argument should be a string not an array')
-    } else if (typeof operation === 'object') {
+    } else if (typeof statementsAndLoops === 'object') {
       throw TypeError('The passed argument should be a string not an object')
     }
   }
