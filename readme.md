@@ -45,7 +45,7 @@ console.log('project Operations = ', await checkMyProjectCode.countProjectOperat
 
 
 
-## Installing
+## installing
 
 ```shell
 npm i code-statistics

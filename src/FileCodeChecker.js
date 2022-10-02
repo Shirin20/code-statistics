@@ -5,16 +5,42 @@ const errorMessage = new ErrorHandler()
  */
 export class FileCodeChecker {
   /**
-   * Counts how many times a character occurs in a fileAsText.
+   * Returns the number of all white spaces and characters in a file.
    *
-   * @param {string} fileAsText .
+   * @param {string} fileCode .
+   * @returns {number} .
+   */
+  countFileCodeAndWhiteSpaces (fileCode) {
+    errorMessage.handleFileError(fileCode)
+    return fileCode.length
+  }
+
+  // eslint-disable-next-line jsdoc/require-jsdoc
+  countFileLines (fileCode) {
+    errorMessage.handleFileError(fileCode)
+    return this.#getLinesNumber(fileCode)
+  }
+
+  // eslint-disable-next-line jsdoc/require-jsdoc
+  #getLinesNumber (fileCode) {
+    if (fileCode.length > 0 && this.#countFileCharacterOccurrences(fileCode, '\n') === 0) {
+      return 1
+    } else {
+      return 1 + this.#countFileCharacterOccurrences(fileCode, '\n')
+    }
+  }
+
+  /**
+   * Counts how many times a character occurs in a fileCode.
+   *
+   * @param {string} fileCode .
    * @param {string} character .
    * @returns {number} .
    */
-  #countFileCharacterOccurrences (fileAsText, character) {
+  #countFileCharacterOccurrences (fileCode, character) {
     let charOccurrence = 0
-    for (let i = 0; i <= fileAsText.length; i++) {
-      if (fileAsText[i] === character) {
+    for (let i = 0; i <= fileCode.length; i++) {
+      if (fileCode[i] === character) {
         charOccurrence++
       }
     }
@@ -24,38 +50,38 @@ export class FileCodeChecker {
   /**
    * In this function -1 means that the specified character doesn't exist .
    *
-   * @param {string} fileAsText .
+   * @param {string} fileCode .
    * @returns {boolean} .
    */
-  #thereAreCodBlockComments (fileAsText) {
-    return fileAsText.indexOf('/*') !== -1
+  #thereAreCodBlockComments (fileCode) {
+    return fileCode.indexOf('/*') !== -1
   }
 
   /**
-   * Deletes the block commented code from the fileAsText.
+   * Deletes the block commented code from the fileCode.
    *
-   * @param {string} fileAsText .
+   * @param {string} fileCode .
    * @returns {string} fileText
    */
-  #deleteCodBlockComments (fileAsText) {
-    while (this.#thereAreCodBlockComments(fileAsText)) {
-      const beginningOfTheComment = fileAsText.indexOf('/*')
-      const endOfTheComment = fileAsText.indexOf('*/')
-      const commentedCodeBlock = fileAsText.slice(beginningOfTheComment, endOfTheComment + 2)
-      fileAsText = fileAsText.replace(commentedCodeBlock, '')
+  #deleteCodBlockComments (fileCode) {
+    while (this.#thereAreCodBlockComments(fileCode)) {
+      const beginningOfTheComment = fileCode.indexOf('/*')
+      const endOfTheComment = fileCode.indexOf('*/')
+      const commentedCodeBlock = fileCode.slice(beginningOfTheComment, endOfTheComment + 2)
+      fileCode = fileCode.replace(commentedCodeBlock, '')
     }
-    const noBlockCommentsText = fileAsText
+    const noBlockCommentsText = fileCode
     return noBlockCommentsText
   }
 
   /**
    * Returns the text as an array of lines.
    *
-   * @param {string} fileAsText .
+   * @param {string} fileCode .
    * @returns {Array} of lines
    */
-  #getFileTextLines (fileAsText) {
-    return fileAsText.split('\n')
+  #getFileTextLines (fileCode) {
+    return fileCode.split('\n')
   }
 
   /**
@@ -75,11 +101,11 @@ export class FileCodeChecker {
   /**
    * Deletes the code lines comments.
    *
-   * @param {string} fileAsText to be checked.
+   * @param {string} fileCode to be checked.
    * @returns {Array} Returns the code lines with empty comments
    */
-  #deleteCodeComments (fileAsText) {
-    const fileTextLines = this.#getFileTextLines(fileAsText)
+  #deleteCodeComments (fileCode) {
+    const fileTextLines = this.#getFileTextLines(fileCode)
     const fileLinesWithNoComments = this.#getLinesWords(fileTextLines)
     // Delete the words int he line array that contains '//'
     for (let i = 0; i < fileLinesWithNoComments.length; i++) {
@@ -93,30 +119,15 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many lines are in a file.
-   *
-   * @param {string} fileAsText .
-   * @returns {number} number of lines in the file.
-   */
-  countFileLines (fileAsText) {
-    errorMessage.fileErrorMessage(fileAsText)
-    let lines = 0
-    if (fileAsText[0] !== undefined) {
-      lines = 1 + this.#countFileCharacterOccurrences(fileAsText, '\n')
-    }
-    return lines
-  }
-
-  /**
    * Counts how many times an operation occurs in a text.
    *
-   * @param {string} fileAsText .
+   * @param {string} fileCode .
    * @param {string} operation .
    * @returns {number} .
    */
-  countFileOperations (fileAsText, operation) {
-    errorMessage.fileErrorMessage(fileAsText)
-    const textWithNoCodeBlockComments = this.#deleteCodBlockComments(fileAsText)
+  countFileOperations (fileCode, operation) {
+    errorMessage.handleFileError(fileCode)
+    const textWithNoCodeBlockComments = this.#deleteCodBlockComments(fileCode)
     const codeLinesArrays = this.#deleteCodeComments(textWithNoCodeBlockComments)
     let operationOccurrence = 0
     for (let i = 0; i < codeLinesArrays.length; i++) {
@@ -125,16 +136,5 @@ export class FileCodeChecker {
       }
     }
     return operationOccurrence
-  }
-
-  /**
-   * Returns the number of all white spaces and characters in a file.
-   *
-   * @param {string} fileAsText .
-   * @returns {number} .
-   */
-  countFileCharacters (fileAsText) {
-    errorMessage.fileErrorMessage(fileAsText)
-    return fileAsText.length
   }
 }

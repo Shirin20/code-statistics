@@ -16,7 +16,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
    * @returns {number} number of total code and code comments lines in the project.
    */
   async countProjectLines (dirFilesPaths) {
-    errorMessage.projectErrorMessage(dirFilesPaths)
+    errorMessage.handleProjectError(dirFilesPaths)
     let projectLinesNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
@@ -34,8 +34,8 @@ export class ProjectCodeChecker extends FileCodeChecker {
    * @returns {number} .
    */
   async countProjectOperations (dirFilesPaths, operation) {
-    errorMessage.operationParameterErrorMessage(operation)
-    errorMessage.projectErrorMessage(dirFilesPaths)
+    errorMessage.handleStatementsAndLoopsParameterError(operation)
+    errorMessage.handleProjectError(dirFilesPaths)
     let projectOperationNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
@@ -51,7 +51,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
    * @returns {number} .
    */
   async countProjectCharacters (dirFilesPaths) {
-    errorMessage.projectErrorMessage(dirFilesPaths)
+    errorMessage.handleProjectError(dirFilesPaths)
     let projectCharactersNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])

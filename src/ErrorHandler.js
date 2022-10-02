@@ -40,16 +40,15 @@ export class ErrorHandler {
   /**
    * Returns and throw exceptions if the input is not a file path string .
    *
-   * @param {string} filePath .
+   * @param {string} fileCode .
    */
-  handleFileError (filePath) {
-    const ERROR_MESSAGE_NOT_A_STRING = 'You should pass the file path string'
-    if (filePath === undefined) {
-      throw TypeError(ERROR_MESSAGE_NOT_A_STRING)
-    } else if (Array.isArray(filePath)) {
-      throw TypeError(ERROR_MESSAGE_NOT_A_STRING)
-    } else if (typeof filePath === 'object') {
-      throw TypeError(ERROR_MESSAGE_NOT_A_STRING)
+  handleFileError (fileCode) {
+    if (fileCode === undefined) {
+      throw TypeError('you should pass your file content!')
+    } else if (Array.isArray(fileCode)) {
+      throw TypeError('you should pass your file content as a string not an array!')
+    } else if (typeof fileCode === 'object') {
+      throw TypeError('you should pass your file content as a string not an object!')
     }
   }
 
