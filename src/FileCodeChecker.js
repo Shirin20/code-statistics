@@ -10,7 +10,7 @@ export class FileCodeChecker {
    * @param {string} fileCode .
    * @returns {number} .
    */
-  countFileCodeAndWhiteSpaces (fileCode) {
+  countFileCodeCharAndWhiteSpaces (fileCode) {
     errorMessage.handleFileError(fileCode)
     return fileCode.length
   }
@@ -48,6 +48,71 @@ export class FileCodeChecker {
   }
 
   /**
+   * Counts how many times an operation occurs in a text.
+   *
+   * @param {string} fileCode .
+   * @returns {number} .
+   */
+  countFileIfStatements (fileCode) {
+    return this.#countFileOperations(fileCode, 'if')
+  }
+
+  /**
+   * Counts how many times an operation occurs in a text.
+   *
+   * @param {string} fileCode .
+   * @param {string} operation .
+   * @returns {number} .
+   */
+  #countFileOperations (fileCode, operation) {
+    errorMessage.handleFileError(fileCode)
+    const codeWithNoBlockComments = this.#deleteCodeBlockComments(fileCode)
+    const codeWithNoTextStyring = this.#deleteTextStringBlock(codeWithNoBlockComments)
+    const codeWithNoLinesComments = this.#deleteCodeComments(codeWithNoTextStyring)
+    let operationOccurrence = 0
+    for (let i = 0; i < codeWithNoLinesComments.length; i++) {
+      if (codeWithNoLinesComments[i].includes(operation)) {
+        operationOccurrence++
+      }
+    }
+    return operationOccurrence
+  }
+
+  /**
+   * Deletes the block commented code from the fileCode.
+   *
+   * @param {string} fileCode .
+   * @returns {string} fileText
+   */
+  #deleteTextStringBlock (fileCode) {
+    while (this.#thereAreCodBlockComments(fileCode)) {
+      const beginningOfTheComment = fileCode.indexOf('\'')
+      const endOfTheComment = fileCode.indexOf('\'')
+      const commentedCodeBlock = fileCode.slice(beginningOfTheComment, endOfTheComment)
+      fileCode = fileCode.replace(commentedCodeBlock, '')
+    }
+    const TextWithNoTextStrings = fileCode
+    return TextWithNoTextStrings
+  }
+
+  /**
+   * Deletes the block commented code from the fileCode.
+   *
+   * @param {string} fileCode .
+   * @returns {string} fileText
+   */
+  #deleteCodeBlockComments (fileCode) {
+    while (this.#thereAreCodBlockComments(fileCode)) {
+      const beginningOfTheComment = fileCode.indexOf('/*')
+      const endOfTheComment = fileCode.indexOf('*/')
+      const commentedCodeBlock = fileCode.slice(beginningOfTheComment, endOfTheComment + 2)
+      fileCode = fileCode.replace(commentedCodeBlock, '')
+    }
+    const noBlockCommentsText = fileCode
+    return noBlockCommentsText
+  }
+
+  /**
    * In this function -1 means that the specified character doesn't exist .
    *
    * @param {string} fileCode .
@@ -58,20 +123,23 @@ export class FileCodeChecker {
   }
 
   /**
-   * Deletes the block commented code from the fileCode.
+   * Deletes the code lines comments.
    *
-   * @param {string} fileCode .
-   * @returns {string} fileText
+   * @param {string} fileCode to be checked.
+   * @returns {Array} Returns the code lines with empty comments
    */
-  #deleteCodBlockComments (fileCode) {
-    while (this.#thereAreCodBlockComments(fileCode)) {
-      const beginningOfTheComment = fileCode.indexOf('/*')
-      const endOfTheComment = fileCode.indexOf('*/')
-      const commentedCodeBlock = fileCode.slice(beginningOfTheComment, endOfTheComment + 2)
-      fileCode = fileCode.replace(commentedCodeBlock, '')
+  #deleteCodeComments (fileCode) {
+    const fileTextLines = this.#getFileTextLines(fileCode)
+    const fileLinesWithNoComments = this.#getLinesWords(fileTextLines)
+    // Delete the words int he line array that contains '//'
+    for (let i = 0; i < fileLinesWithNoComments.length; i++) {
+      for (let j = 0; j < fileLinesWithNoComments[i].length; j++) {
+        if (this.#countFileCharacterOccurrences(fileLinesWithNoComments[i][j], '/') > 1) {
+          fileLinesWithNoComments[i].splice(1, fileLinesWithNoComments[i].length)
+        }
+      }
     }
-    const noBlockCommentsText = fileCode
-    return noBlockCommentsText
+    return fileLinesWithNoComments
   }
 
   /**
@@ -96,45 +164,5 @@ export class FileCodeChecker {
       LineWords.push(fileTextLines[i].split(' '))
     }
     return LineWords
-  }
-
-  /**
-   * Deletes the code lines comments.
-   *
-   * @param {string} fileCode to be checked.
-   * @returns {Array} Returns the code lines with empty comments
-   */
-  #deleteCodeComments (fileCode) {
-    const fileTextLines = this.#getFileTextLines(fileCode)
-    const fileLinesWithNoComments = this.#getLinesWords(fileTextLines)
-    // Delete the words int he line array that contains '//'
-    for (let i = 0; i < fileLinesWithNoComments.length; i++) {
-      for (let j = 0; j < fileLinesWithNoComments[i].length; j++) {
-        if (this.#countFileCharacterOccurrences(fileLinesWithNoComments[i][j], '/') > 1) {
-          fileLinesWithNoComments[i].splice(1, fileLinesWithNoComments[i].length)
-        }
-      }
-    }
-    return fileLinesWithNoComments
-  }
-
-  /**
-   * Counts how many times an operation occurs in a text.
-   *
-   * @param {string} fileCode .
-   * @param {string} operation .
-   * @returns {number} .
-   */
-  countFileOperations (fileCode, operation) {
-    errorMessage.handleFileError(fileCode)
-    const textWithNoCodeBlockComments = this.#deleteCodBlockComments(fileCode)
-    const codeLinesArrays = this.#deleteCodeComments(textWithNoCodeBlockComments)
-    let operationOccurrence = 0
-    for (let i = 0; i < codeLinesArrays.length; i++) {
-      if (codeLinesArrays[i].includes(operation)) {
-        operationOccurrence++
-      }
-    }
-    return operationOccurrence
   }
 }
