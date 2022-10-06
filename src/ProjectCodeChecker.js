@@ -83,12 +83,6 @@ export class ProjectCodeChecker extends FileCodeChecker {
     return projectOperationNumber
   }
 
-  /**
-   * Returns the number of all white spaces and characters in a project.
-   *
-   * @param {string} dirFilesPaths .
-   * @returns {number} .
-   */
   async countProjectCharacters (dirFilesPaths) {
     errorMessage.handleProjectError(dirFilesPaths)
     const charAndWhiteSpacesNumber = this.#getCharTotalNumber(dirFilesPaths)
