@@ -33,7 +33,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times a character occurs in a fileCode.
+   * .
    *
    * @param {string} fileCode .
    * @param {string} character .
@@ -224,7 +224,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times an control statement occurs in a text.
+   * .
    *
    * @param {Array} codeWithNoStringsOrComments .
    * @param {string} controlStatement  .
