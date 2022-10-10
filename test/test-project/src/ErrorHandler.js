@@ -7,31 +7,31 @@ export class ErrorHandler {
   /**
    * Returns and throw exceptions if the input is not an array of project files paths .
    *
-   * @param {Array} projectFilesPathsArray .
+   * @param {Array} projectFilesPaths .
    */
-  handleProjectError (projectFilesPathsArray) {
-    this.#throwErrorIfNotArray(projectFilesPathsArray)
-    this.#throwErrorIfUndefined(projectFilesPathsArray)
-    this.#throwErrorWhenThereOtherThanFiles(projectFilesPathsArray) // throw error
+  handleProjectError (projectFilesPaths) {
+    this.#throwErrorIfNotArray(projectFilesPaths)
+    this.#throwErrorIfUndefined(projectFilesPaths)
+    this.#throwErrorWhenThereOtherThanFiles(projectFilesPaths) // throw error
   }
 
   // eslint-disable-next-line jsdoc/require-jsdoc
-  #throwErrorIfNotArray (projectFilesPathsArray) {
-    if (!Array.isArray(projectFilesPathsArray)) {
+  #throwErrorIfNotArray (projectFilesPaths) {
+    if (!Array.isArray(projectFilesPaths)) {
       throw TypeError('You should pass an array of the files paths')
     }
   }
   // eslint-disable-next-line lines-between-class-members, jsdoc/require-jsdoc
-  #throwErrorIfUndefined (projectFilesPathsArray) {
-    if (projectFilesPathsArray === undefined) {
+  #throwErrorIfUndefined (projectFilesPaths) {
+    if (projectFilesPaths === undefined) {
       throw TypeError('You should pass the files paths array')
     }
   }
 
   // eslint-disable-next-line jsdoc/require-description, jsdoc/require-jsdoc
-  #throwErrorWhenThereOtherThanFiles (projectFilesPathsArray) {
-    for (let i = 0; i < projectFilesPathsArray.length; i++) {
-      if (path.extname(projectFilesPathsArray[i]) === '') {
+  #throwErrorWhenThereOtherThanFiles (projectFilesPaths) {
+    for (let i = 0; i < projectFilesPaths.length; i++) {
+      if (path.extname(projectFilesPaths[i]) === '') {
         throw TypeError('The array should only contain file paths')
       }
     }
@@ -55,14 +55,14 @@ export class ErrorHandler {
   /**
    * Returns and throw exceptions if the input does not meet the set requirements .
    *
-   * @param {string} controlStatements - An array.
+   * @param {string} statementsAndLoops - An array.
    */
-  handleControlStatementsParameterError (controlStatements) {
-    if (controlStatements === undefined) {
+  handleStatementsAndLoopsParameterError (statementsAndLoops) {
+    if (statementsAndLoops === undefined) {
       throw TypeError('You should pass a string')
-    } else if (Array.isArray(controlStatements)) {
+    } else if (Array.isArray(statementsAndLoops)) {
       throw TypeError('The passed argument should be a string not an array')
-    } else if (typeof controlStatements === 'object') {
+    } else if (typeof statementsAndLoops === 'object') {
       throw TypeError('The passed argument should be a string not an object')
     }
   }

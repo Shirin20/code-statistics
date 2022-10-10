@@ -5,81 +5,84 @@ import { FileCodeChecker } from './src/FileCodeChecker.js'
 import { ProjectFilesReader } from './src/ProjectFilesReader.js'
 import readline from 'readline'
 
-const checkMyProjectCode = new ProjectCodeChecker()
-const checkMyFileCode = new FileCodeChecker()
+const myProject = new ProjectCodeChecker()
+const myFile = new FileCodeChecker('src/FileCodeChecker.js')
 
-const myFile = new ProjectFilesReader()
+const reader = new ProjectFilesReader()
 
-const fileCode = await myFile.convertFileIntoString('src/FileCodeChecker.js')
-
-// console.log('File Lines = ', checkMyFileCode.countFileLines(fileCode))
-
-// console.log('File Char And WhiteSpaces: ', await checkMyFileCode.countFileCodeCharAndWhiteSpaces(fileCode))
-
-// console.log('If statements: ', await checkMyFileCode.countFileIfStatements(fileCode))
-
-// console.log('WhileAnd DoWhileLoops: ', await checkMyFileCode.countFileWhileAndDoWhileLoops(fileCode))
-
-// console.log('for loops', await checkMyFileCode.countFileForLoops(fileCode))
-
-// // ///////////////////////////////////////////////////////////////
-// //                  Project Statistics                          //
-// // //////////////////////////////////////////////////////////////
-
-// const projectFiles = await myFile.getDirectoryFilesPaths('src')
-
-// console.log('Project Lines = ', await checkMyProjectCode.countProjectLines(projectFiles))
-// console.log('Char And WhiteSpaces: = ', await checkMyProjectCode.countProjectCharacters(projectFiles))
-
-// console.log('Project forLoops = ', await checkMyProjectCode.countProjectForLoops(projectFiles))
-// console.log('If statements: ', await checkMyProjectCode.countProjectIfStatements(projectFiles))
-// console.log('While do while Loops: ', await checkMyProjectCode.countProjectWhileAndDoWhileLoops(projectFiles))
-// // console.log('welcome to code statistics')
-
-function fileOrProject () {
-  console.log('Choose one of the following')
-  console.log('Type in \'file\' to get statistics on a file ')
-  console.log('Type in \'project\' to get statistics on a project')
+function showMenu () {
+  console.log(`
+  ***************** Welcome to code statistics **********
+  Type in: menu, help - to show this menu
+  Type in: file <file path> -  To get code statistics for one file
+  Type in: project <project dir path> To get code statistics for one project
+  Type in: exit, quit - to exit the program
+  `)
 }
 
-const userConsole = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-})
+async function printFileCodeStatistics (userFile) {
+  const fileAsText = await reader.convertFileIntoString(userFile)
 
-userConsole.question(fileOrProject(), async function (userInput) {
-  userInput = userInput.trim()
-  if (userInput === 'file') {
-    userConsole.question('Type in the file path: ', async function (userFile) {
-      const fileAsText = await myFile.convertFileIntoString(userFile)
+  console.log('FileCharacters = ', myFile.countFileCodeCharAndWhiteSpaces(fileAsText))
+  console.log('FileLines = ', myFile.countFileLines(fileAsText))
+  console.log('for loops = ', myFile.countFileForLoops(fileAsText))
+  console.log('while and do while loops = ', myFile.countFileWhileAndDoWhileLoops(fileAsText))
+  console.log('if statements = ', myFile.countFileIfStatements(fileAsText))
+}
 
-      console.log('FileCharacters = ', checkMyFileCode.countFileCodeCharAndWhiteSpaces(fileAsText))
-      console.log('FileLines = ', checkMyFileCode.countFileLines(fileAsText))
-      console.log('for loops = ', checkMyFileCode.countFileForLoops(fileAsText))
-      console.log('while and do while loops = ', checkMyFileCode.countFileWhileAndDoWhileLoops(fileAsText))
-      console.log('if statements = ', checkMyFileCode.countFileIfStatements(fileAsText))
-      userConsole.close()
-    })
-  } else if (userInput === 'project') {
-    userConsole.question('Type in the folder name ', async function (userProject) {
-      const dirFilesArray = await myFile.getDirectoryFilesPaths(userProject)
-      console.log('Calculating statistics for the following files.....')
-      console.log(dirFilesArray)
-      console.log('project total lines = ', await checkMyProjectCode.countProjectLines(dirFilesArray))
-      console.log('project total characters = ', await checkMyProjectCode.countProjectCharacters(dirFilesArray))
-      console.log('project for loops = ', await checkMyProjectCode.countProjectForLoops(dirFilesArray))
-      console.log('project while and do while loops = ', await checkMyProjectCode.countProjectWhileAndDoWhileLoops(dirFilesArray))
-      console.log('project if statements = ', await checkMyProjectCode.countProjectIfStatements(dirFilesArray))
-      userConsole.close()
-    })
-  } else {
-    console.log('')
-    console.log('Wrong choice restart the program')
-    userConsole.close()
-  }
-})
+async function printProjectCodeStatistics (userProjectRootPath) {
+  const projectFilesPathsArray = await reader.getDirectoryFilesPaths(userProjectRootPath)
 
-userConsole.on('close', function () {
-  console.log('\n exit !!!')
-  process.exit(0)
-})
+  console.log('Project Lines = ', await myProject.countProjectLines(projectFilesPathsArray))
+  console.log('Project char And WhiteSpaces = ', await myProject.countProjectCharacters(projectFilesPathsArray))
+
+  console.log('Project for loops = ', await myProject.countProjectForLoops(projectFilesPathsArray))
+  console.log('Project if statements = ', await myProject.countProjectIfStatements(projectFilesPathsArray))
+  console.log('Project while, do while loops = ', await myProject.countProjectWhileAndDoWhileLoops(projectFilesPathsArray))
+}
+
+function exitProgram (code) {
+  code = code || 0
+
+  console.info('\nExiting with exit status: ' + code)
+  process.exit(code)
+}
+(async function () {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+  showMenu()
+
+  rl.setPrompt('Your choice: ')
+  rl.prompt()
+
+  rl.on('close', exitProgram)
+  rl.on('line', async (input) => {
+    input = input.trim()
+    const lineArray = input.split(' ')
+
+    switch (lineArray[0]) {
+      case 'exit':
+      case 'quit':
+        exitProgram()
+        break
+      case 'menu':
+      case 'help':
+        showMenu()
+        break
+      case 'file':
+        await printFileCodeStatistics(lineArray[1])
+        showMenu()
+        break
+      case 'project':
+        await printProjectCodeStatistics(lineArray[1])
+        showMenu()
+        break
+      default:
+        showMenu()
+        break
+    }
+    rl.prompt()
+  })
+})()
