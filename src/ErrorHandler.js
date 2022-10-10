@@ -7,31 +7,31 @@ export class ErrorHandler {
   /**
    * Returns and throw exceptions if the input is not an array of project files paths .
    *
-   * @param {Array} projectFilesPaths .
+   * @param {Array} projectFilesPathsArray .
    */
-  handleProjectError (projectFilesPaths) {
-    this.#throwErrorIfNotArray(projectFilesPaths)
-    this.#throwErrorIfUndefined(projectFilesPaths)
-    this.#throwErrorWhenThereOtherThanFiles(projectFilesPaths) // throw error
+  handleProjectError (projectFilesPathsArray) {
+    this.#throwErrorIfNotArray(projectFilesPathsArray)
+    this.#throwErrorIfUndefined(projectFilesPathsArray)
+    this.#throwErrorWhenThereOtherThanFiles(projectFilesPathsArray) // throw error
   }
 
   // eslint-disable-next-line jsdoc/require-jsdoc
-  #throwErrorIfNotArray (projectFilesPaths) {
-    if (!Array.isArray(projectFilesPaths)) {
+  #throwErrorIfNotArray (projectFilesPathsArray) {
+    if (!Array.isArray(projectFilesPathsArray)) {
       throw TypeError('You should pass an array of the files paths')
     }
   }
   // eslint-disable-next-line lines-between-class-members, jsdoc/require-jsdoc
-  #throwErrorIfUndefined (projectFilesPaths) {
-    if (projectFilesPaths === undefined) {
+  #throwErrorIfUndefined (projectFilesPathsArray) {
+    if (projectFilesPathsArray === undefined) {
       throw TypeError('You should pass the files paths array')
     }
   }
 
   // eslint-disable-next-line jsdoc/require-description, jsdoc/require-jsdoc
-  #throwErrorWhenThereOtherThanFiles (projectFilesPaths) {
-    for (let i = 0; i < projectFilesPaths.length; i++) {
-      if (path.extname(projectFilesPaths[i]) === '') {
+  #throwErrorWhenThereOtherThanFiles (projectFilesPathsArray) {
+    for (let i = 0; i < projectFilesPathsArray.length; i++) {
+      if (path.extname(projectFilesPathsArray[i]) === '') {
         throw TypeError('The array should only contain file paths')
       }
     }

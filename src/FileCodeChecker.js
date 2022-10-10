@@ -50,50 +50,50 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times an operation occurs in a text.
+   * Counts how many times a Control statement occurs in a text.
    *
    * @param {string} fileCode .
    * @returns {number} .
    */
   countFileIfStatements (fileCode) {
-    return this.#countFileOperations(fileCode, 'if')
+    return this.#countFileControlStatements(fileCode, 'if')
   }
 
   /**
-   * Counts how many times an operation occurs in a text.
+   * Counts how many times a Control statement occurs in a text.
    *
    * @param {string} fileCode .
    * @returns {number} .
    */
   countFileForLoops (fileCode) {
-    return this.#countFileOperations(fileCode, 'for')
+    return this.#countFileControlStatements(fileCode, 'for')
   }
 
   /**
-   * Counts how many times an operation occurs in a text.
+   * Counts how many times an controlStatement occurs in a text.
    *
    * @param {string} fileCode .
    * @returns {number} .
    */
   countFileWhileAndDoWhileLoops (fileCode) {
-    return this.#countFileOperations(fileCode, 'while')
+    return this.#countFileControlStatements(fileCode, 'while')
   }
 
   /**
-   * Counts how many times an operation occurs in a text.
+   * Counts how many times a control statement occurs in a file.
    *
    * @param {string} fileCode .
-   * @param {string} operation .
+   * @param {string} controlStatement .
    * @returns {number} .
    */
-  #countFileOperations (fileCode, operation) {
+  #countFileControlStatements (fileCode, controlStatement) {
     errorMessage.handleFileError(fileCode)
 
     const codeWithNoBlockComments = this.#deleteCodeBlockComments(fileCode)
 
     const codeWithNoLinesComments = this.#deleteCodeLinesComments(codeWithNoBlockComments)
 
-    const numberOfOccurrences = this.#countCodeOperation(codeWithNoLinesComments, operation)
+    const numberOfOccurrences = this.#countCodeControlStatements(codeWithNoLinesComments, controlStatement)
 
     return numberOfOccurrences
   }
@@ -224,31 +224,31 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times an operation occurs in a text.
+   * Counts how many times an control statement occurs in a text.
    *
    * @param {Array} codeWithNoStringsOrComments .
-   * @param {string} operation .
+   * @param {string} controlStatement  .
    * @returns {number} .
    */
-  #countCodeOperation (codeWithNoStringsOrComments, operation) {
-    let operationOccurrence = 0
+  #countCodeControlStatements (codeWithNoStringsOrComments, controlStatement) {
+    let controlStatementOccurrences = 0
     for (let i = 0; i < codeWithNoStringsOrComments.length; i++) {
-      if (this.#isOperationFound(codeWithNoStringsOrComments[i], operation)) {
-        operationOccurrence++
+      if (this.#isControlStatementFound(codeWithNoStringsOrComments[i], controlStatement)) {
+        controlStatementOccurrences++
       }
     }
-    return operationOccurrence
+    return controlStatementOccurrences
   }
 
   /**
    * A.
    *
    * @param {string}  code .
-   * @param {string}  operation .
+   * @param {string}  controlStatement .
    * @returns {boolean}  .
    */
-  #isOperationFound (code, operation) {
-    if (code.includes(operation)) {
+  #isControlStatementFound (code, controlStatement) {
+    if (code.includes(controlStatement)) {
       return true
     }
   }

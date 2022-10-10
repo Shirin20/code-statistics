@@ -33,7 +33,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
   }
 
   /**
-   * How many times an operation is used.
+   * How many times an control statement is used.
    *
    * @param {Array} dirFilesPaths .
    * @returns {number} .
@@ -45,12 +45,12 @@ export class ProjectCodeChecker extends FileCodeChecker {
   }
 
   async #getForLoopsTotalNumber (dirFilesPaths) {
-    let projectOperationNumber = 0
+    let projectForLoopsNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
-      projectOperationNumber += super.countFileForLoops(fileAsText)
+      projectForLoopsNumber += super.countFileForLoops(fileAsText)
     }
-    return projectOperationNumber
+    return projectForLoopsNumber
   }
 
   async countProjectIfStatements (dirFilesPaths) {
@@ -60,12 +60,12 @@ export class ProjectCodeChecker extends FileCodeChecker {
   }
 
   async #getIfStatementsTotalNumber (dirFilesPaths) {
-    let projectOperationNumber = 0
+    let projectIfStatementsNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
-      projectOperationNumber += super.countFileIfStatements(fileAsText)
+      projectIfStatementsNumber += super.countFileIfStatements(fileAsText)
     }
-    return projectOperationNumber
+    return projectIfStatementsNumber
   }
 
   async countProjectWhileAndDoWhileLoops (dirFilesPaths) {
@@ -75,12 +75,12 @@ export class ProjectCodeChecker extends FileCodeChecker {
   }
 
   async #getWileAndDoTotalNumber (dirFilesPaths) {
-    let projectOperationNumber = 0
+    let projectWileAndDoNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
-      projectOperationNumber += super.countFileWhileAndDoWhileLoops(fileAsText)
+      projectWileAndDoNumber += super.countFileWhileAndDoWhileLoops(fileAsText)
     }
-    return projectOperationNumber
+    return projectWileAndDoNumber
   }
 
   async countProjectCharacters (dirFilesPaths) {
