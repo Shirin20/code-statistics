@@ -52,6 +52,7 @@ function exitProgram (code) {
     input: process.stdin,
     output: process.stdout
   })
+
   showMenu()
 
   rl.setPrompt('Your choice: ')
