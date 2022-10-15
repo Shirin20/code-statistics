@@ -11,7 +11,7 @@ const errorMessage = new ErrorHandler()
  */
 export class ProjectCodeChecker extends FileCodeChecker {
   /**
-   * Counts how many lines are in a project.
+   * .
    *
    * @param {Array} dirFilesPaths .
    * @returns {number} number of total code and code comments lines in the project.
@@ -33,7 +33,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
   }
 
   /**
-   * How many times an control statement is used.
+   * .
    *
    * @param {Array} dirFilesPaths .
    * @returns {number} .

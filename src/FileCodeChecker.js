@@ -1,5 +1,6 @@
-/* eslint-disable jsdoc/require-jsdoc */
 /* eslint-disable jsdoc/match-description */
+/* eslint-disable jsdoc/require-description */
+/* eslint-disable jsdoc/require-jsdoc */
 import { ErrorHandler } from './ErrorHandler.js'
 const errorMessage = new ErrorHandler()
 /**
@@ -7,7 +8,7 @@ const errorMessage = new ErrorHandler()
  */
 export class FileCodeChecker {
   /**
-   * Returns the number of all white spaces and characters in a file.
+   * .
    *
    * @param {string} fileCode .
    * @returns {number} .
@@ -17,13 +18,11 @@ export class FileCodeChecker {
     return fileCode.length
   }
 
-  // eslint-disable-next-line jsdoc/require-jsdoc
   countFileLines (fileCode) {
     errorMessage.handleFileError(fileCode)
     return this.#getLinesNumber(fileCode)
   }
 
-  // eslint-disable-next-line jsdoc/require-jsdoc
   #getLinesNumber (fileCode) {
     if (fileCode.length > 0 && this.#countFileCharOccurrences(fileCode, '\n') === 0) {
       return 1
@@ -50,7 +49,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times a Control statement occurs in a text.
+   * .
    *
    * @param {string} fileCode .
    * @returns {number} .
@@ -60,7 +59,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times a Control statement occurs in a text.
+   * .
    *
    * @param {string} fileCode .
    * @returns {number} .
@@ -70,7 +69,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times an controlStatement occurs in a text.
+   * .
    *
    * @param {string} fileCode .
    * @returns {number} .
@@ -80,7 +79,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Counts how many times a control statement occurs in a file.
+   * .
    *
    * @param {string} fileCode .
    * @param {string} controlStatement .
@@ -99,7 +98,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Deletes the block commented code from the fileCode.
+   * .
    *
    * @param {string} fileCode .
    * @returns {string} fileText
@@ -162,7 +161,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Deletes the code lines comments.
+   * .
    *
    * @param {string} fileCode to be checked.
    * @returns {Array} Returns the code lines with empty comments
@@ -185,7 +184,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * Returns the line as an array of words .
+   * .
    *
    * @param {string} fileTextLines .
    * @returns {Array} of words
@@ -241,7 +240,7 @@ export class FileCodeChecker {
   }
 
   /**
-   * A.
+   * .
    *
    * @param {string}  code .
    * @param {string}  controlStatement .

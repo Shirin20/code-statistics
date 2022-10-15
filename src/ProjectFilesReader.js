@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/match-description */
 /* eslint-disable jsdoc/require-jsdoc */
 import fs from 'node:fs'
 import path from 'path'
@@ -7,7 +8,7 @@ import path from 'path'
  */
 export class ProjectFilesReader {
 /**
- * Converts the file code content into a string.
+ * .
  *
  * @param {string}filePath .
  * @returns {string} the file content as a string.
@@ -21,10 +22,10 @@ export class ProjectFilesReader {
   }
 
   /**
-   * Returns all the files paths that the project contains.
+   * Returns all the .js, .java files paths that the project contains.
    *
    * @param {string}dirRootPath .
-   * @returns {Array} returns an array of relative paths of all the files in the project.
+   * @returns {Array} returns an array of relative paths.
    */
   async getDirectoryFilesPaths (dirRootPath) {
     try {
@@ -48,7 +49,8 @@ export class ProjectFilesReader {
   }
 
   #isFolder (dirContentElement) {
-    return path.extname(dirContentElement) === ''
+    const stats = fs.statSync(dirContentElement)
+    return stats.isDirectory()
   }
 
   #isFile (dirContentElement) {
@@ -60,10 +62,10 @@ export class ProjectFilesReader {
   }
 
   /**
-   * Gets the root files and folders.
+   * .
    *
-   * @param {string}dirRootPath path of the directory from where the contents have to be read.
-   * @returns {Array} of file and folder names that the directory contains.
+   * @param {string}dirRootPath .
+   * @returns {Array} .
    */
   async #getRootFoldersAndFiles (dirRootPath) {
     try {

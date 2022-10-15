@@ -45,7 +45,7 @@ programmet var testat genom hela utvecklings tiden med automatiska tester for tv
 ### Testfall
 ![FileCodeChecker](test/img/FileCodeCheckerTests.png "FileCodeChecker")
 ​
-![ProjectCodeChecker](test/img/FileCodeCheckerTests.png "ProjectCodeChecker")
+![ProjectCodeChecker](test/img/ProjectCodeCheckerTests.png "ProjectCodeChecker")
 ​
 ## Kodkvalitetskrav
 ​
