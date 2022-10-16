@@ -44,7 +44,7 @@ export class ErrorHandler {
    */
   handleFileError (fileCode) {
     if (fileCode === undefined) {
-      throw TypeError('you should pass your file content!')
+      throw TypeError('You should pass your file content!')
     } else if (Array.isArray(fileCode)) {
       throw TypeError('you should pass your file content as a string not an array!')
     } else if (typeof fileCode === 'object') {

@@ -78,6 +78,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
     let projectWileAndDoNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
+
       projectWileAndDoNumber += super.countFileWhileAndDoWhileLoops(fileAsText)
     }
     return projectWileAndDoNumber
@@ -85,6 +86,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
 
   async countProjectCharacters (dirFilesPaths) {
     errorMessage.handleProjectError(dirFilesPaths)
+
     const charAndWhiteSpacesNumber = this.#getCharTotalNumber(dirFilesPaths)
     return charAndWhiteSpacesNumber
   }
@@ -93,6 +95,7 @@ export class ProjectCodeChecker extends FileCodeChecker {
     let projectCharactersNumber = 0
     for (let i = 0; i < dirFilesPaths.length; i++) {
       const fileAsText = await projectReader.convertFileIntoString(dirFilesPaths[i])
+
       projectCharactersNumber += super.countFileCodeCharAndWhiteSpaces(fileAsText)
     }
     return projectCharactersNumber

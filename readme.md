@@ -73,11 +73,12 @@ The output :
 ```shell
 npm i code-statistics
 ```
-
+To learn how to download npm packages  
+https://www.youtube.com/watch?v=5FIyNwBMADo
 ### License  
 
 [MIT](https://libraries.io/licenses/MIT)
 
 ### Release  
 
-1.0.1
+1.1.1

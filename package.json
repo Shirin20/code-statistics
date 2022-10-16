@@ -1,6 +1,6 @@
 {
   "name": "code-statistics",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Calculates code statistics",
   "type": "module",
   "main": "app.js",
