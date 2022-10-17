@@ -1,0 +1,59 @@
+/**
+ * Tests for the FileCodeChecker module.
+ *
+ * @author Shirin Meirkhan <sm223qi@student.lnu.se>
+ * @version 1.0.0
+ */
+
+import { FileCodeChecker } from '../src/FileCodeChecker.js'
+import { ProjectFilesReader } from '../src/ProjectFilesReader'
+
+const dirFile = new ProjectFilesReader()
+const checkFileCode = new FileCodeChecker()
+
+const fileAsText = await dirFile.convertFileIntoString('src/FileCodeChecker.js')
+
+// // ------------------------------------------------------------------------------
+// //  countLines
+// // ------------------------------------------------------------------------------
+describe('countFileLines', () => {
+  // describe('argument', () => testFileClassArgument(checkFileCode.countFileLines))
+
+  describe('return value', () => {
+    it('passing \'src/FileCodeChecker.js\' should return 141', async () => {
+      expect(await checkFileCode.countFileLines(fileAsText)).toBe(133)
+    })
+  })
+})
+
+// ------------------------------------------------------------------------------
+//  Count characters
+// ------------------------------------------------------------------------------
+describe('countFileCharacters', () => {
+  // describe('argument', () => testFileClassArgument(checkFileCode.countFileCharacters))
+
+  describe('return value', () => {
+    it('passing \'src/FileCodeChecker.js\' should return total characters number', async () => {
+      expect(await checkFileCode.countFileCodeCharAndWhiteSpaces(fileAsText)).toBe(3179)
+    })
+  })
+})
+
+// ------------------------------------------------------------------------------
+//  Count control statements
+// ------------------------------------------------------------------------------
+describe('countFileForLoops', () => {
+  describe('return value', () => {
+    it('passing \'src/FileCodeChecker.js\' should return number of for loops', async () => {
+      expect(await checkFileCode.countFileForLoops('src/FileCodeChecker.js')).toBe(0)
+    })
+  })
+})
+
+describe('countFileIfStatements', () => {
+  describe('return value', () => {
+    it('passing \'src/FileCodeChecker.js\' should return number of if statements', async () => {
+      expect(await checkFileCode.countFileIfStatements('../src/FileCodeChecker.js')).toBe(0)
+    })
+  })
+})

@@ -27,10 +27,10 @@ export class FileCodeChecker {
   }
 
   #getLinesNumber (fileCode) {
-    if (fileCode.length > 0 && this.#countFileCharOccurrences(fileCode, '\n') === 0) {
+    if (fileCode.length > 0 && this.countFileCharOccurrences(fileCode, '\n') === 0) {
       return 1
     } else {
-      return 1 + this.#countFileCharOccurrences(fileCode, '\n')
+      return 1 + this.countFileCharOccurrences(fileCode, '\n')
     }
   }
 
@@ -41,7 +41,7 @@ export class FileCodeChecker {
    * @param {string} character .
    * @returns {number} .
    */
-  #countFileCharOccurrences (fileCode, character) {
+  countFileCharOccurrences (fileCode, character) {
     let charOccurrence = 0
     for (let i = 0; i <= fileCode.length; i++) {
       if (fileCode[i] === character) {

@@ -16,19 +16,19 @@ const dirFiles = await dirExtractor.getDirectoryFilesPaths('src')
 //  countProjectLines
 // ------------------------------------------------------------------------------
 describe('countProjectLines', () => {
-  test('passing dirFiles folder should return 325', async () => {
-    expect(await projectCode.countProjectLines(dirFiles)).toEqual(325)
+  test('passing dirFiles folder should total lines number', async () => {
+    expect(await projectCode.countProjectLines(dirFiles)).toEqual(548)
   })
 })
 
-describe('countProjectOperations', () => {
-  test('passing (dirFiles, \'for\') folder should return 10', async () => {
-    expect(await projectCode.countProjectOperations(dirFiles, 'for')).toEqual(10)
+describe('countProjectForLoops', () => {
+  test('passing (dirFiles) folder should return for loops number for all project files', async () => {
+    expect(await projectCode.countProjectForLoops(dirFiles)).toEqual(13)
   })
 })
 
 describe('countProjectCharacters', () => {
-  test('passing (dirFiles, \'for\') folder should return 9687', async () => {
-    expect(await projectCode.countProjectCharacters(dirFiles)).toEqual(9687)
+  test('passing (dirFiles) folder should total characters number for all project files ', async () => {
+    expect(await projectCode.countProjectCharacters(dirFiles)).toEqual(14944)
   })
 })

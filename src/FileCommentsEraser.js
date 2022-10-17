@@ -1,9 +1,6 @@
 /* eslint-disable jsdoc/match-description */
 /* eslint-disable jsdoc/require-description */
 /* eslint-disable jsdoc/require-jsdoc */
-import { FileCodeChecker } from './FileCodeChecker.js'
-
-const fileChecker = new FileCodeChecker('src/FileCodeChecker.js')
 
 export class FileCommentsEraser {
   /**
@@ -127,10 +124,27 @@ export class FileCommentsEraser {
   }
 
   #isLineCommentFound (line, word) {
-    if (fileChecker.countFileCharOccurrences(line[word], '/') > 1) {
+    if (this.#countCharOccurrences(line[word], '/') > 1) {
       return true
     }
     return false
+  }
+
+  /**
+   * .
+   *
+   * @param {string} code .
+   * @param {string} character .
+   * @returns {number} .
+   */
+  #countCharOccurrences (code, character) {
+    let charOccurrence = 0
+    for (let i = 0; i <= code.length; i++) {
+      if (code[i] === character) {
+        charOccurrence++
+      }
+    }
+    return charOccurrence
   }
 
   #deleteWordsAfterLineCommentSign (line) {

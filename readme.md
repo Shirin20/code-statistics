@@ -27,15 +27,15 @@ const myFile = new CheckFileCode()
 
 const fileAsText = await reader.convertFileIntoString('test/test-file.js')
 
-console.log('File Lines = ', myFile.countFileLines(fileCode))
+console.log('File Lines = ', myFile.countFileLines(fileAsText))
 
-console.log('File Char And WhiteSpaces = ', await myFile.countFileCodeCharAndWhiteSpaces(fileCode))
+console.log('File Char And WhiteSpaces = ', await myFile.countFileCodeCharAndWhiteSpaces(fileAsText))
 
-console.log('If statements = ', await myFile.countFileIfStatements(fileCode))
+console.log('If statements = ', await myFile.countFileIfStatements(fileAsText))
 
-console.log('WhileAnd DoWhileLoops = ', await myFile.countFileWhileAndDoWhileLoops(fileCode))
+console.log('WhileAnd DoWhileLoops = ', await myFile.countFileWhileAndDoWhileLoops(fileAsText))
 
-console.log('For loops = ', await myFile.countFileForLoops(fileCode))
+console.log('For loops = ', await myFile.countFileForLoops(fileAsText))
 ```
 
 The output :
@@ -45,11 +45,11 @@ The output :
 + Use it to check a project
 
 ```javascript
-import { CheckProjectCode } from './CheckProjectCode.js'
+import { ProjectCodeChecker } from './ProjectCodeChecker.js'
 import { ProjectFilesReader } from './ProjectFilesReader.js'
 
 const reader = new ProjectFilesReader()
-const myProject = new CheckProjectCode()
+const myProject = new ProjectCodeChecker()
 
 
 const projectFilesPathsArray = await MyProjectFiles.getDirectoryFilesPaths('tets/test-project/src')
