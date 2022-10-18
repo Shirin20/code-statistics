@@ -1,7 +1,7 @@
 # code-statistics
 
 Node.js code-statistics library  
-Release 1.0.1
+Release 1.1.1
 
 ## Features
 
